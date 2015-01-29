@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Soclever Login
-Plugin URI: https://www.socleversocial.com.com/
-Description: Let your subscriber login with social network profiles.
-Version: 1.1
-Author: Soclever Team
+Plugin Name: Social Login Facebook connect - other Social networks By SoClever
+Plugin URI: https://wordpress.org/plugins/social-login-facebook-connect-by-soclever/
+Description: This module enables Social Login (Facebook and more), User Profile Data & Social Analytics on your site
+Version: 1.0.0
+Author: Socleversocial
 Author URI: https://www.socleversocial.com/
  */
 
