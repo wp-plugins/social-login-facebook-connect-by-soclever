@@ -11,7 +11,7 @@ This module enables Social Login (Facebook and more), User Profile Data & Social
 
 == Description ==
  
-Social Login Facebook connect + other Social networks By SoClever
+= Social Login Facebook connect + other Social networks By SoClever =
  
 SoClevers provides FREE social login tools to help increase conversions, registration rates, increase comments by allowing easier registrations. Our Plugin works with Facebook, Google+ LinkedIn, PayPal, Yahoo! & Instagram. Our JavaScript is asynchronous ensuring fast load time, and it is also dynamic so you can A-B test from our dashboard without needing to re-code.
  
@@ -25,24 +25,24 @@ You can watch a video on the plugin here https://www.youtube.com/watch?v=Np3CGpX
  
 Thanks for choosing our plugin, feel free to leave a review or contact us for any feedback. If you want to know more about the features we offer, keep reading below. 
  
-Features
+= Features = 
  
-Social Login 
+= Social Login =
 Eliminate registration forms and let your customer / visitors sign-up in few seconds using trusted IDs like Facebook, Twitter, Google, Yahoo, and more. Increase your sign-up rates and start building a loyal customer list today.
  
-Track Revenue
+= Track Revenue =
 Have an e-commerce site? Track revenue per social user, download customer segments to personalise your messaging. Segment your customers into groups to help future marketing efforts.
  
-Top Facebook likes
+= Top Facebook likes =
 Download our reports on top Facebook Liked pages of your customers/visitors, filter to add top revenue customers and their top likes. Quick CSV upload to Facebook to create a new advertising campaigns. 
  
-User Profile Data & Social Analytics
+= User Profile Data & Social Analytics =
 Build a rich profile of your customers with our unique reporting dashboard. Get access to full name, email address, DOB, gender, relationship status, home town, place of birth, like, interests and much more with SoClever social login.
  
-Birthday Reports
+= Birthday Reports =
 Send a personalised message to your visitors by using our birthday reports. 
  
-Dynamic JavaScript
+= Dynamic JavaScript =
 Our asynchronous javascript load faster without interfearing with the display or behaviour of the page. Dynamic JavaScript makes it easy to choose/sort social netork buttons for display.
  
  == Installation ==
