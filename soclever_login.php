@@ -95,17 +95,7 @@ $creds['user_login']=$row_user[0]->user_login;
 $creds['user_password']=$new_pass;
 $creds['remember'] = true;
 
-
-
-	
-
-	
-
-
-
 $userlogin=wp_signon($creds,true);
-
-
 
 $notify_cs=file_get_contents("https://www.socleversocial.com/dashboard/track_register_new.php?siteid=".get_option('scsl_site_id')."&action=notifycs&is_new=".$is_new."&is_from=".$is_from."&siteUid=".$id_use."&member_id=".$member_id);
 if($notify_cs)
@@ -704,9 +694,7 @@ function scslogin_html_page()
 	</a>
     </h1>
 
-    <h2>
-       Get access to your Free reports on Soclever Dashboard
-    </h2>
+   
 </header>
 
  <?php
@@ -880,18 +868,31 @@ else
 }
 ?>
 <div style="background: none repeat scroll 0 0 #fff;border: 1px solid #eee;margin-bottom: 30px;width:95%;">
+					<h4 style=" border-bottom: 1px solid #eee;margin-bottom: 10px;padding: 10px 0;text-align: center;">Configuration</h4>
+					<div style="padding: 10px 10px 30px 0px;">
+						1. <a target="_blank" href="https://www.socleversocial.com/dashboard/login.php">Login</a> to your SoClever account. Or <a target="_blank" href="https://www.socleversocial.com/pricing/">Register</a> for free account to generate API Keys.<br>
+			           2. Go to <a target="_blank" href="https://www.socleversocial.com/dashboard/billing_profile_setting.php">Site Settings</a> . Your API key, API secret and site ID will be displayed on this page.<br>
+			           3. Configure your API details on API settings tab on your magento Admin Panel.<br>
+			           4. To be able to enable Social Login for your site, please create Social Apps on social networks. For more information on how to create Apps for your website please visit our help section on <a target="_blank" href="http://developers.socleversocial.com/category/social-network-set-up/">Social Network Set Up</a>.<br>
+			           5. Please configure your Social Apps API details on SoClever <a target="_blank" href="https://www.socleversocial.com/dashboard/authorization_setting.php">Authorization page</a>.<br>
+			           6. Once you configure Authorization Page, social network buttons will be unlocked to use at <a target="_blank" href="https://www.socleversocial.com/dashboard/social_login_setting.php">Login Settings Page</a>. Please select social networks you want to use for social login and save settings.<br>
+			           7. Refresh your admin panel to configure button size, padding gap and buttons style.<br>
+			           8. Feel free to <a target="_blank" href="https://www.socleversocial.com/contact-us/">contact us</a> for any assistance you may require.
+					</div>
+				</div>
+<div style="background: none repeat scroll 0 0 #fff;border: 1px solid #eee;margin-bottom: 30px;width:95%;">
 					<h4 style=" border-bottom: 1px solid #eee;margin-bottom: 10px;padding: 10px 0;text-align: center;">Help</h4>
 					<div style="padding: 10px 10px 30px 0px;">
-						<a style="display:block;margin-left:10px;" href="http://developers.socleversocial.com/wordpress-social-sharing-buttons-instructions/" target="_blank">
-							Plug in Configuration and Troubleshooting</a>
 						<a style="display:block;margin-left:10px;" href="http://developers.socleversocial.com/how-to-get-api-key-and-secret/" target="_blank">
 							How to get Soclever API key and secret?</a>
 						<a style="display:block;margin-left:10px;" href="http://developers.socleversocial.com/" target="_blank">
 							Social Network Apps Set Up</a>
 						<a style="display:block;margin-left:10px;" href="https://www.socleversocial.com/about-us/" target="_blank">
 							About Soclever</a>	
+							<b> How to create Facebook App for your website</b><br />
+<iframe src="//player.vimeo.com/video/118392066?title=0&byline=0&portrait=0" width="800" height="481" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 					</div>
 				</div>
-
+					
 <?php    
 }
