@@ -1,6 +1,6 @@
 === Social Login Facebook connect - other Social networks By SoClever ===
 Contributors: Socleversocial
-Tags: facebook login, facebook connect, login buttons, social login, twitter login, google+ login, login with facebook
+Tags: facebook login, facebook connect, login buttons, social login, twitter login, google+ login, login with facebook, instagram, linkedin, paypal, oneall
 Requires at least: 3.0.1
 Tested up to: 4.1
 Stable tag: 1.1.0
