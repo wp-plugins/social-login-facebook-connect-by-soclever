@@ -618,7 +618,7 @@ function scsl_login_get_current_url ()
 
 if(isset($_POST['submit_login']) && $_POST['submit_login']=='Submit' )
 {
-   
+   update_option("scsl_valid_domain",'0');
     
     $res_ponse_str=file_get_contents('https://www.socleversocial.com/dashboard/wp_activate.php?site_id='.mysql_real_escape_string($_POST['client_id']).'&api_key='.mysql_real_escape_string($_POST['api_key']).'&api_secret='.mysql_real_escape_string($_POST['api_secret']).'');
     $res_ponse=explode("~~",$res_ponse_str);
@@ -838,7 +838,12 @@ function scslogin_html_page()
 {
  wp_register_style( 'scsl-style', plugins_url('scsl_css/scsl_style_login_final.css', __FILE__) );
  wp_enqueue_style( 'scsl-style' );
+ wp_register_script( 'scsl_tabb', plugins_url('scsl_css/tabbed.js', __FILE__));
+ wp_enqueue_script( 'scsl_tabb' );
+ 
  ?>
+ 
+ 
  <header class="scsl-clearfix">
     <h1>
 	<a href="https://www.socleversocial.com/" target="_blank">
@@ -848,21 +853,85 @@ function scslogin_html_page()
 
    
 </header>
-
- <?php
-if(get_option('scsl_valid_domain')=='1')
-{
-    
-        
-        
-
-    ?>
+<div class="tabber" style="width: 95% !important;">
+<?php if(get_option('scsl_valid_domain')=='0') { ?>
+<div class="tabbertab">
+	  <h2>Your Soclever API Setting</h2>
+      
+<table id="cssteps">
+        <thead>
+            <tr valign="top">
+                <th>
+                <h1>Step 1 - Create a SocleverSocial.com account</h1>
+                <p>To get started, register your Soclever Social account and find your API key in the site settings. If you already have an account please log in. </p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+           
+        </tbody>
+        <tfoot>
+            <tr valign="top">
+                <td>
+                    <a href="https://www.socleversocial.com/register/?wpd=<?php echo base64_encode(get_site_url()); ?>" target="_blank" class="scslbutton">Register</a> 
+                    <a href="https://www.socleversocial.com/dashboard/" target="_blank" class="scslbutton">Login</a></p>
+                </td>
+            </tr>
+            <tr valign="top" align="left">
+                <th>
+                <h1>Step 2 - Enter your API Settings</h1>                
+                </th>
+            </tr>
+  <form method="post" action="">
+  <?php wp_nonce_field('update-options'); ?>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<th width="20%" scope="row">Client ID</th>
+<td>
+<input type="text" name="client_id" id="client_id" width="10" />
+ 
+</td>
+</tr>
+<tr valign="middle">
+<th width="20%" scope="row">API Key</th>
+<td>
+<input type="text" name="api_key" id="api_key"  width="40"/>
+ 
+</td>
+</tr>
+<tr valign="middle">
+<th width="20%" scope="row">API Secret</th>
+<td>
+<input type="text" name="api_secret" id="api_secret"  width="40"/>
+ 
+</td>
+</tr>
+<tr valign="middle">
+<th width="20%" scope="row">Valid Domain</th>
+<td>
+<input type="text" name="scsl_domain" id="scsl_domain"  width="100"/> 
+ 
+</td>
+</tr>
+<tr valign="middle">
+<td>&nbsp;</td>
+<td>
+<input type="submit" name="submit_login" id="submit_login" class="scslbutton"  value="Submit"/>
+ 
+</td>
+</tr>
+</table>
+  </form>
+  </table>
+</div>  
+<?php } ?>
+<div class="tabbertab">
   
 <h2>SoClever Social Login Setting</h2>
 <?php wp_nonce_field('update-options'); ?>
                         
 <form class="login-form mt-lg" action="" method="post" name="authosharefrm" enctype="multipart/form-data">
-                            <table class="scsl_login_table" style="margin:20px 20px 20px 0px;font-size:1em;width:75%;" cellspacing="3" cellpadding="3">
+                            <table class="scsl_login_table" style="margin:20px 20px 20px 20px;font-size:1em;width:95%;" cellspacing="3" cellpadding="3">
                                 
                                 
                     
@@ -944,7 +1013,7 @@ if(get_option('scsl_valid_domain')=='1')
 							</td>
 						</tr>    
                     </table> 
-                    <table class="scsl_login_table" style="margin:20px 20px 20px 0px;font-size:1em;width:75%;" cellspacing="3" cellpadding="3">
+                    <table class="scsl_login_table" style="margin:20px 20px 20px 20px;font-size:1em;width:95%;" cellspacing="3" cellpadding="3">
                     <tr class="heading_row">
                     <th>Comment Setting</th>
                     </tr> 
@@ -994,7 +1063,7 @@ if(get_option('scsl_valid_domain')=='1')
 							</td>
 						</tr>
                     </table>    
-                    <table class="scsl_login_table" style="margin:20px 20px 20px 0px;font-size:1em;width:75%;" cellspacing="3" cellpadding="3">
+                    <table class="scsl_login_table" style="margin:20px 20px 20px 20px;font-size:1em;width:95%;" cellspacing="3" cellpadding="3">
                     <tr class="heading_row">
                     <th>Login Setting</th>
                     </tr>
@@ -1024,11 +1093,19 @@ if(get_option('scsl_valid_domain')=='1')
                     </td>
                     </tr>                    
                     <tr>
-                    <th align="left">Providers</th>
+                    <th align="left">Social Networks<em>(Please select Social Networks at your <a href="https://www.socleversocial.com/dashboard/social_login_setting_wp.php" target="_blank">SoClever dashboard</a>)</em></th>
                     </tr>
                     <tr>                    
                     <td>
-                    <?php  $savedSetting=file_get_contents("https://www.socleversocial.com/dashboard/wp_login_setting.php?site_id=".get_option('scsl_site_id')."&action=preview&button_style=".get_option('scsl_button_style')."&button_size=".get_option('scsl_button_size')."");
+                    <?php 
+                    $savedSetting='0';
+                    if(get_option('scsl_valid_domain')=='0')
+                    {
+                        echo"<font color='#ff0000'>Please provide valid Soclever API setting.</font>";
+                    }
+                    else
+                    {
+                     $savedSetting=file_get_contents("https://www.socleversocial.com/dashboard/wp_login_setting.php?site_id=".get_option('scsl_site_id')."&action=preview&button_style=".get_option('scsl_button_style')."&button_size=".get_option('scsl_button_size')."");
                     if($savedSetting=='0')
                     {
                         echo"<font color='#ff0000'>No provider selected on SoCleverSocial Dashboard</font>";
@@ -1037,18 +1114,18 @@ if(get_option('scsl_valid_domain')=='1')
                     {
                         echo $savedSetting;
                     }
-                    
+                    }
                      ?>      
                     </td>
                     </tr>                    
-                    <?php if($savedSetting!='0')
+                    <?php if($savedSetting!='0' && get_option('scsl_valid_domain')=='1')
                     {
                      ?>    
                     <tr>
-                                    <td>
+                                    <td align="center"  >
                                         <div class="clearfix">
                                             <div class="btn-toolbar pull-right">                                            
-                                                <input type="submit" name="save_login" class="scslbutton" value="Save" />
+                                                <input type="submit" name="save_login" class="scslbutton" value="Save"  />
                                             </div>
                                         </div>
                                     </td>
@@ -1059,85 +1136,9 @@ if(get_option('scsl_valid_domain')=='1')
                         
 
 </form>
-
-
-  
-    <?php
-}
-else
-{    
-?>
-<div>
-<table id="cssteps">
-        <thead>
-            <tr valign="top">
-                <th>
-                <h1>Step 1 - Create a SocleverSocial.com account</h1>
-                <p>To get started, register your Soclever Social account and find your API key in the site settings. If you already have an account please log in. </p>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-           
-        </tbody>
-        <tfoot>
-            <tr valign="top">
-                <td>
-                    <a href="https://www.socleversocial.com/register/?wpd=<?php echo base64_encode(get_site_url()); ?>" target="_blank" class="scslbutton">Register</a> 
-                    <a href="https://www.socleversocial.com/dashboard/" target="_blank" class="scslbutton">Login</a></p>
-                </td>
-            </tr>
-            <tr valign="top" align="left">
-                <th>
-                <h1>Step 2 - Enter your API Settings</h1>                
-                </th>
-            </tr>
-  <form method="post" action="">
-  <?php wp_nonce_field('update-options'); ?>
-<table width="100%" border="0" cellpadding="2" cellspacing="2">
-<tr valign="middle">
-<th width="20%" scope="row">Client ID</th>
-<td>
-<input type="text" name="client_id" id="client_id" width="10" />
- 
-</td>
-</tr>
-<tr valign="middle">
-<th width="20%" scope="row">API Key</th>
-<td>
-<input type="text" name="api_key" id="api_key"  width="40"/>
- 
-</td>
-</tr>
-<tr valign="middle">
-<th width="20%" scope="row">API Secret</th>
-<td>
-<input type="text" name="api_secret" id="api_secret"  width="40"/>
- 
-</td>
-</tr>
-<tr valign="middle">
-<th width="20%" scope="row">Valid Domain</th>
-<td>
-<input type="text" name="scsl_domain" id="scsl_domain"  width="100"/> 
- 
-</td>
-</tr>
-<tr valign="middle">
-<td>&nbsp;</td>
-<td>
-<input type="submit" name="submit_login" id="submit_login" class="scslbutton"  value="Submit"/>
- 
-</td>
-</tr>
-</table>
-  </form>
-  </table>  
-  
-<?php
-}
-?>
-<div style="background: none repeat scroll 0 0 #fff;border: 1px solid #eee;margin-bottom: 30px;width:75%;">
+</div>
+</div>  
+<div style="background: none repeat scroll 0 0 #fff;border: 1px solid #eee;margin-bottom: 30px;width:95%;">
 					<h4 style=" border-bottom: 1px solid #eee;margin-bottom: 10px;padding: 10px 0;text-align: center;">Configuration</h4>
 					<div style="padding: 10px 10px 30px 0px;">
 						1. <a target="_blank" href="https://www.socleversocial.com/dashboard/login.php">Login</a> to your SoClever account. Or <a target="_blank" href="https://www.socleversocial.com/pricing/">Register</a> for free account to generate API Keys.<br>
@@ -1150,7 +1151,7 @@ else
 			           8. Feel free to <a target="_blank" href="https://www.socleversocial.com/contact-us/">contact us</a> for any assistance you may require.
 					</div>
 				</div>
-<div style="background: none repeat scroll 0 0 #fff;border: 1px solid #eee;margin-bottom: 30px;width:75%;">
+<div style="background: none repeat scroll 0 0 #fff;border: 1px solid #eee;margin-bottom: 30px;width:95%;">
 					<h4 style=" border-bottom: 1px solid #eee;margin-bottom: 10px;padding: 10px 0;text-align: center;">Help</h4>
 					<div style="padding: 10px 10px 30px 0px;">
 						<a style="display:block;margin-left:10px;" href="http://developers.socleversocial.com/how-to-get-api-key-and-secret/" target="_blank">
@@ -1160,7 +1161,7 @@ else
 						<a style="display:block;margin-left:10px;" href="https://www.socleversocial.com/about-us/" target="_blank">
 							About Soclever</a>	
 							<b> How to create Facebook App for your website</b><br />
-<iframe src="//player.vimeo.com/video/118392066?title=0&byline=0&portrait=0" width="800" height="481" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<iframe src="//player.vimeo.com/video/118392066?title=0&byline=0&portrait=0" width="900" height="481" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 					</div>
 				</div>
 					
