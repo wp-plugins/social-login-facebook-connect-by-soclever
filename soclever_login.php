@@ -886,13 +886,6 @@ function scslogin_html_page()
   <?php wp_nonce_field('update-options'); ?>
 <table width="100%" border="0" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<th width="20%" scope="row">Client ID</th>
-<td>
-<input type="text" name="client_id" id="client_id" width="10" />
- 
-</td>
-</tr>
-<tr valign="middle">
 <th width="20%" scope="row">API Key</th>
 <td>
 <input type="text" name="api_key" id="api_key"  width="40"/>
@@ -903,6 +896,13 @@ function scslogin_html_page()
 <th width="20%" scope="row">API Secret</th>
 <td>
 <input type="text" name="api_secret" id="api_secret"  width="40"/>
+ 
+</td>
+</tr>
+<tr valign="middle">
+<th width="20%" scope="row">Client ID</th>
+<td>
+<input type="text" name="client_id" id="client_id" width="10" />
  
 </td>
 </tr>
