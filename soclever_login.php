@@ -211,7 +211,7 @@ function general_soclever_login($resPonse,$is_from)
         $is_new='1';
         }
         
-  $select_user="select user_login from ".$wpdb->prefix."users where ID='".mysql_real_escape_string($id_use)."'";
+  $select_user="select user_login from ".$wpdb->prefix."users where ID='".sanitize_text_field($id_use)."'";
 
 $row_user=$wpdb->get_results($select_user);
 $length = 8;
@@ -495,7 +495,7 @@ function scsl_login(){
         $is_new='1';
         }
         
-  $select_user="select user_login from ".$wpdb->prefix."users where ID='".mysql_real_escape_string($id_use)."'";
+  $select_user="select user_login from ".$wpdb->prefix."users where ID='".sanitize_text_field($id_use)."'";
 
 $row_user=$wpdb->get_results($select_user);
 $length = 8;
@@ -620,19 +620,19 @@ if(isset($_POST['submit_login']) && $_POST['submit_login']=='Submit' )
 {
    update_option("scsl_valid_domain",'0');
     
-    $res_ponse_str=file_get_contents('https://www.socleversocial.com/dashboard/wp_activate.php?site_id='.mysql_real_escape_string($_POST['client_id']).'&api_key='.mysql_real_escape_string($_POST['api_key']).'&api_secret='.mysql_real_escape_string($_POST['api_secret']).'');
+    $res_ponse_str=file_get_contents('https://www.socleversocial.com/dashboard/wp_activate.php?site_id='.sanitize_text_field($_POST['client_id']).'&api_key='.sanitize_text_field($_POST['api_key']).'&api_secret='.sanitize_text_field($_POST['api_secret']).'');
     $res_ponse=explode("~~",$res_ponse_str);
-    if(mysql_real_escape_string($_POST['api_key'])==$res_ponse[0] && mysql_real_escape_string($_POST['api_secret'])==$res_ponse[1] && $res_ponse[0]!='0')
+    if(sanitize_text_field($_POST['api_key'])==$res_ponse[0] && sanitize_text_field($_POST['api_secret'])==$res_ponse[1] && $res_ponse[0]!='0')
     {
         echo "<h2>Thanks for authenticate with SoCleverSocial.com.....</h2>";
         
         /*echo"<br/><h3>Preview</h3><br/>";
         echo htmlspecialchars_decode($res_ponse[2]);*/
         update_option("scsl_valid_domain",'1');
-        update_option("scsl_site_id",mysql_real_escape_string($_POST['client_id']));
-        update_option("scsl_api_key",mysql_real_escape_string($_POST['api_key']));
-        update_option("scsl_api_secret",mysql_real_escape_string($_POST['api_secret']));
-        update_option("scsl_domain",mysql_real_escape_string($_POST['scsl_domain']));
+        update_option("scsl_site_id",sanitize_text_field($_POST['client_id']));
+        update_option("scsl_api_key",sanitize_text_field($_POST['api_key']));
+        update_option("scsl_api_secret",sanitize_text_field($_POST['api_secret']));
+        update_option("scsl_domain",sanitize_text_field($_POST['scsl_domain']));
         ?>
         <script type="text/javascript">
          setTimeout(function(){ window.location='admin.php?page=soclever_login'; }, 3000);
