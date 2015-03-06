@@ -72,6 +72,27 @@ function scsl_uninstall()
 
 }
 
+/**
+ * Add Set up Link on plugin page
+ **/
+function sc_social_login_add_settings_link ($links, $file)
+{
+	static $sc_social_login_plugin = null;
+
+	if (is_null ($sc_social_login_plugin))
+	{
+		$sc_social_login_plugin = plugin_basename (__FILE__);
+	}
+
+	if ($file == $sc_social_login_plugin)
+	{
+		$settings_link = '<a href="admin.php?page=soclever_login">' . __ ('Setup', 'sc_social_login') . '</a>';
+		array_unshift ($links, $settings_link);
+	}
+	return $links;
+}
+add_filter ('plugin_action_links', 'sc_social_login_add_settings_link', 10, 2);
+
 function scsl_comment_approved ($approved)
 {
 	
