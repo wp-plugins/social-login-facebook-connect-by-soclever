@@ -3,7 +3,7 @@
 Plugin Name: Social Login Facebook connect - other Social networks By SoClever
 Plugin URI: https://wordpress.org/plugins/social-login-facebook-connect-by-soclever/
 Description: This module enables Social Login (Facebook and more), User Profile Data & Social Analytics on your site
-Version: 1.1.0
+Version: 1.1.3
 Author: Soclever Team
 Author URI: https://www.socleversocial.com/
  */
