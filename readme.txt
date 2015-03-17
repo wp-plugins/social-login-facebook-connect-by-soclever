@@ -102,7 +102,7 @@ Our team answers your questions at: https://www.socleversocial.com/contact-us/
 == Screenshots ==
 
 1. SoClever Dashboard - Get Detailed reports of Social Logins on your site.
-2. Login Settings - Choose Social Network , sort order and choose Share bar display position.
+2. SoClever API Setting - Configure SoClever API details
 3. Wordpress Settings - Choose Login Buttons Size, Padding Gap and Display Style.
 
 
