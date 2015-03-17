@@ -3,7 +3,7 @@ Contributors: Socleversocial
 Tags: facebook login, facebook connect, login buttons, social login, twitter login, google+ login, login with facebook
 Requires at least: 3.0.1
 Tested up to: 4.1
-Stable tag: 1.1.3
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,22 +112,25 @@ PHP 5+ is preferred; PHP 4 is supported.
 
 == Changelog ==
 
-= 1.0.0 =
-* Launched the plugin
-
-= 1.1.0 =
-* Improved setting page
-* More sharing button designs
-* More functionality on setting page
-
-= 1.1.1 =
-* More login setting functions
+= 1.2.0 =
+* Updated new design for setting page
 
 = 1.1.2 =
 * Bug Fix
 
 = 1.1.3 =
 * Included Curl option for Authorization
+
+= 1.1.1 =
+* More login setting functions
+
+= 1.1.0 =
+* Improved setting page
+* More sharing button designs
+* More functionality on setting page
+
+= 1.0.0 =
+* Launched the plugin
 
 == Upgrade Notice ==
 
