@@ -3,7 +3,7 @@
 Plugin Name: Social Login Facebook connect - other Social networks By SoClever
 Plugin URI: https://wordpress.org/plugins/social-login-facebook-connect-by-soclever/
 Description: This module enables Social Login (Facebook and more), User Profile Data & Social Analytics on your site
-Version: 1.1.0
+Version: 1.2.0
 Author: Soclever Team
 Author URI: https://www.socleversocial.com/
  */
@@ -75,6 +75,8 @@ function scsl_uninstall()
         delete_option('scsl_module_loaded');
 
 }
+
+
 
 function soclever_login_setup($links, $file)
 {
@@ -877,54 +879,10 @@ function scslogin_html_page()
 
  wp_register_style( 'scsl-style', plugins_url('scsl_css/scsl_style_login_final.css', __FILE__) );
  wp_enqueue_style( 'scsl-style' );
- wp_register_style( 'scsl-style-fancy', plugins_url('scsl_css/jquery.fancybox.css', __FILE__) );
- wp_enqueue_style( 'scsl-style-fancy' );
- wp_register_script( 'scsl_tabb', plugins_url('scsl_css/tabbed.js', __FILE__));
- wp_enqueue_script( 'scsl_tabb' );
-  wp_register_script( 'scsl_fancybox', plugins_url('scsl_css/jquery.fancybox.js', __FILE__));
- wp_enqueue_script( 'scsl_fancybox' );
+ 
  ?>
  <script>
- function show_video()
- {
- var jfan=jQuery.noConflict();
-
-
-    var site_url_use="<?php echo admin_url('admin-ajax.php')."?action=scsvideo"; ?>";
-
-	jfan(document).ready(function() {
-
-		jfan.fancybox.open(	{
-
-				'type':'ajax',            
-
-                  'onStart'        : function(){
-
-                   jfan("body").css({"overflow": "hidden", "position": "fixed"});
-
-                    jfan("#fancybox-overlay").css({"overflow": "scroll"});
-
-                     },
-
-                'onClosed'        : function(){
-
-                jfan("body").css({"overflow": "auto", "position": ""});
-
-                  },
-
-			'href' : site_url_use					
-
-		});
-
-	});
-    }
-    
-function closeFB() {
-    
-    var jfan109=jQuery.noConflict();
-    jfan109.fancybox.close(); 
-}
-
+ 
 function show_activate_tab(tab_id)
 {
     
@@ -954,6 +912,8 @@ function show_activate_tab(tab_id)
 </header>
 <section>
 	<div class="main">
+    
+    
  <div class="sect-left" style="margin-top: 15px;">
  	<nav>
     <?php if(get_option('scsl_valid_domain')=='0') { ?>
@@ -1280,8 +1240,9 @@ function show_activate_tab(tab_id)
             
             <div class="r-video">
             	<p>How to Create Facebook App for Website</p>
-                <a href="javascript:void(0);" onclick="show_video();">
-                <img src="<?php echo plugins_url('scsl_css/video.png', __FILE__); ?>" alt="How to Create Facebook App for Website"/>
+            <?php add_thickbox(); ?>
+                <a href="<?php echo admin_url('admin-ajax.php')."?action=scsvideo"; ?>?TB_iframe=true&width=600&height=400" class="thickbox">
+                  <img src="<?php echo plugins_url('scsl_css/video.png', __FILE__); ?>" alt="How to Create Facebook App for Website"/>       
                 </a>
                 
             </div>
