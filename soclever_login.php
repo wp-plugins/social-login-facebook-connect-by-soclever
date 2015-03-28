@@ -73,6 +73,7 @@ function scsl_uninstall()
         delete_option('scsl_reg_page_redirect_url');
         delete_option('scsl_show_if_members_only');
         delete_option('scsl_module_loaded');
+        delete_option('scs_login_ins');
 
 }
 
@@ -95,6 +96,24 @@ function soclever_login_setup($links, $file)
 	return $links;
 }
 add_filter ('plugin_action_links', 'soclever_login_setup', 10, 2);
+
+
+add_action('wp_footer', 'scsl_js_footer');
+
+function scsl_js_footer()
+{
+    update_option('scs_login_ins','1');
+    $footer_js="";
+    if(!get_option('scs_share_ins'))
+    {
+   $footer_js='<script type="text/javascript">var sid=\''.get_option('scsl_site_id').'\';(function()
+                                                    { var u=((\'https:\'==document.location.protocol)?\'http://\':\'http://\')+\'s3.socleversocial.com/\'; var su=u;var s=document.createElement(\'script\'); s.type=\'text/javascript\'; s.defer=true; s.async=true; s.src=su+\'scs.js\'; var p=document.getElementsByTagName(\'script\')[0]; p.parentNode.insertBefore(s,p); }
+                                                    )();       
+                                           </script>'; 
+   $footer_js .=PHP_EOL;
+   }
+   echo $footer_js;                                        
+}	   
 
 
 function get_cscurl($url)
