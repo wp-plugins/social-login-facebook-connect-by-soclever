@@ -1,0 +1,175 @@
+.scsl-clearfix:after{
+    content: '';
+    display: table;
+    clear: both;
+}
+
+header {
+    background: #f2f2f2;
+    padding-left: 20px;
+    margin: 0 0 -5px -20px;
+    position: relative;
+}
+
+header h1, header h2 {
+    float: left;
+    color:#333333;
+}
+
+header h1 {
+    display: inline;
+    color:#333333;
+    border-right: 1px solid #333333;
+    padding: 20px 20px 20px 0
+}
+
+header h2 {
+    width: 55%;
+    color:#333333;
+    font-size: 16px;
+    padding: 20px;
+    font-weight: 300;
+}
+
+.help {
+    background: white;
+    color: #333333;
+
+}
+
+.half {
+    width: 49%;
+    float: left;
+}
+
+
+#cssteps{
+    width: 100%;
+    margin-bottom: 25px;
+   
+   
+}
+#cssteps thead{
+    text-align: left;
+}
+#cssteps h2{
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 18px;
+    margin: 0;
+    padding: 0;
+}
+.cssteps-list{
+    list-style: initial !important;
+    padding-left: 20px;
+}
+.scslbutton {
+    font-size: 13px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    padding: 4px 10px;    
+    background: #0a4d8a;
+    border: 1px solid #719b2e;
+    text-shadow: 0px -1px 0px #66922b;
+    margin-top: 5px;
+    cursor:pointer;
+}
+
+.custom-expressions {
+    width: 100%
+}
+
+.custom-expressions tr {
+    width: 100%;
+    background: white;
+    border: 1px solid #dbd5d9;
+}
+
+.custom-expressions td {
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+.tabberlive .tabbertabhide {
+ display:none;
+}
+.tabber {
+}
+.tabberlive {
+ margin-top:1em;
+width:80%;
+}
+
+ul.tabbernav
+{
+ margin:0;
+ padding: 3px 0;
+ border-bottom: 1px solid #778;
+ font: bold 18px Verdana, sans-serif;
+}
+
+ul.tabbernav li
+{
+ list-style: none;
+ margin: 0;
+ display: inline;
+}
+
+ul.tabbernav li a
+{
+ padding: 3px 0.5em; 
+ border: 1px solid #778;
+ border-bottom: none;
+ background: #DDE;
+ text-decoration: none;
+}
+
+ul.tabbernav li a:link { color: #448; }
+ul.tabbernav li a:visited { color: #667; }
+
+ul.tabbernav li a:hover
+{
+ color: #000;
+ background: #AAE;
+ border-color: #227;
+}
+
+ul.tabbernav li.tabberactive a
+{
+ background-color: #fff;
+ border-bottom: 1px solid #fff;
+}
+
+ul.tabbernav li.tabberactive a:hover
+{
+ color: #000;
+ background: white;
+ border-bottom: 1px solid white;
+}
+.tabbertab 
+{
+background-color:#fff;
+margin-bottom:20px;
+}
+.tabberlive .tabbertab {
+ padding:5px;
+ border:1px solid #aaa;
+ border-top:0;
+
+}
+.tabberlive .tabbertab h2 {
+ display:none;
+}
+.tabberlive .tabbertab h3 {
+ display:none;
+}
+.tabberlive#tab1 {
+}
+.tabberlive#tab2 {
+}
+.tabberlive#tab2 .tabbertab {
+ height:200px;
+ overflow:auto;
+}
+
