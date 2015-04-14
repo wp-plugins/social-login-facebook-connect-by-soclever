@@ -1,5 +1,5 @@
 === Social Login Facebook connect - other Social networks By SoClever ===
-Contributors: Socleversocial
+Contributors: Socleversocial, hemanglashkary
 Tags: facebook login, facebook connect, login buttons, social login, twitter login, google+ login, login with facebook
 Requires at least: 3.0.1
 Tested up to: 4.1
