@@ -3,7 +3,7 @@ Contributors: Socleversocial, hemanglashkary
 Tags: facebook login, facebook connect, login buttons, social login, twitter login, google+ login, login with facebook
 Requires at least: 3.0.1
 Tested up to: 4.2
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,9 @@ Our team answers your questions at: https://www.socleversocial.com/contact-us/
 PHP 5+ is preferred; PHP 4 is supported.
 
 == Changelog ==
+
+= 1.2.2 =
+* Added Twitter login pop up
 
 = 1.2.1 =
 * Added platform id

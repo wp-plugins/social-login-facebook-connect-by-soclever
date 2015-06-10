@@ -3,7 +3,7 @@
 Plugin Name: Social Login Facebook connect - other Social networks By SoClever
 Plugin URI: https://wordpress.org/plugins/social-login-facebook-connect-by-soclever/
 Description: This module enables Social Login (Facebook and more), User Profile Data & Social Analytics on your site
-Version: 1.2.1
+Version: 1.2.2
 Author: Soclever Team
 Author URI: https://www.socleversocial.com/
  */
@@ -14,6 +14,7 @@ header("Expires: Thu, 19 Nov 1981 08:52:00 GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate");
 
 register_activation_hook(__FILE__, 'scsl_activation');
+register_deactivation_hook(__FILE__, 'scsl_deactivation');
 register_uninstall_hook(__FILE__, 'scsl_uninstall');
 function scsl_activation(){
 		update_option('scsl_track_url','https://www.socleversocial.com/dashboard/');
@@ -46,6 +47,10 @@ function scsl_activation(){
 
  
 }
+function scsl_deactivation(){
+    delete_option('scs_login_ins');
+    
+  }  
 function scsl_uninstall()
 {
         delete_option('scsl_track_url');
@@ -77,6 +82,18 @@ function scsl_uninstall()
 
 }
 
+function scsl_custom_fun($notify_cs)
+{
+    $agegen=explode("~",$notify_cs);
+     setcookie("csag", $agegen[1], strtotime('+30 days'),"/");
+     setcookie("csgen", $agegen[2], strtotime('+30 days'),"/");
+     setcookie("csrs", $agegen[3], strtotime('+30 days'),"/");
+     setcookie("csfbn", $agegen[4], strtotime('+30 days'),"/");
+     setcookie("cstfn", $agegen[5], strtotime('+30 days'),"/");
+     setcookie("cszip", $agegen[6], strtotime('+30 days'),"/");
+
+}
+
 
 
 function soclever_login_setup($links, $file)
@@ -104,11 +121,14 @@ function scsl_js_footer()
 {
     update_option('scs_login_ins','1');
     $footer_js="";
-    if(!get_option('scs_share_ins'))
-    {
-   $footer_js='<script type="text/javascript">var sid=\''.get_option('scsl_site_id').'\';(function()
-                                                    { var u=((\'https:\'==document.location.protocol)?\'http://\':\'http://\')+\'s3.socleversocial.com/\'; var su=u;var s=document.createElement(\'script\'); s.type=\'text/javascript\'; s.defer=true; s.async=true; s.src=su+\'scs.js\'; var p=document.getElementsByTagName(\'script\')[0]; p.parentNode.insertBefore(s,p); }
-                                                    )();       
+    
+   if(!get_option('scs_share_ins'))
+   {
+   $footer_js='<script type="text/javascript">
+var sid=\''.get_option('scsl_site_id').'\';(function()
+                                                    { var u=((\'https:\'==document.location.protocol)?\'https://\':\'https://\')+\'s3.socleversocial.com/\'; var su=u;var s=document.createElement(\'script\'); s.type=\'text/javascript\'; s.defer=true; s.async=true; s.src=su+\'scs.js\'; var p=document.getElementsByTagName(\'script\')[0]; p.parentNode.insertBefore(s,p); }
+                                                    )();  
+                                                         
                                            </script>'; 
    $footer_js .=PHP_EOL;
    }
@@ -243,9 +263,9 @@ function scsl_custom_avatar( $avatar, $id_or_email, $size, $default, $alt )
 }
 
 
-
 function general_soclever_login($resPonse,$is_from)
 {
+  
     global $wpdb;
     $fb_data=json_decode($resPonse);    
     
@@ -286,15 +306,16 @@ function general_soclever_login($resPonse,$is_from)
 $row_user=$wpdb->get_results($select_user);
 $creds['user_login']=$row_user[0]->user_login;
 
-        wp_set_current_user($user_id,$creds['user_login']);
+        wp_set_current_user($id_use,$creds['user_login']);
         wp_set_auth_cookie($id_use);
         do_action('wp_login', $creds['user_login']);
         
         
 $notify_cs=get_cscurl("https://www.socleversocial.com/dashboard/track_register_new.php?siteid=".get_option('scsl_site_id')."&action=notifycs&is_new=".$is_new."&is_from=".$is_from."&siteUid=".$id_use."&member_id=".$member_id);
+
 if($notify_cs)
 {
-    
+    scsl_custom_fun($notify_cs);
     if($is_new=='1' && get_option('scsl_email_notify')=='1')
     {
     scsl_send_reg_email($creds['user_login'],$is_from);    
@@ -306,9 +327,36 @@ if($notify_cs)
     wp_new_user_notification($id_use,$pwd);    
     
     }
-    $red_url=($_COOKIE['lch']=='l')?get_site_url():$_COOKIE['lch'];
-     
-    header("location:".scsl_redirect_url()."");
+    $isIosChrome = (strpos($_SERVER['HTTP_USER_AGENT'], 'CriOS') !== false) ? true : false;
+    if(!$isIosChrome)
+    {
+        
+    
+    //$red_url=($_COOKIE['lch']=='l')?get_site_url():$_COOKIE['lch'];
+     ?>
+     <script type="text/javascript">
+     if(opener)
+     {
+     opener.location.href='<?php echo scsl_redirect_url(); ?>';
+     close();
+     }
+     else
+     {
+        window.location.href='<?php echo scsl_redirect_url(); ?>';
+     }
+     </script>
+     <?php
+     }
+     else
+     {
+     ?>
+     <script type="text/javascript">
+     window.location.href='<?php echo scsl_redirect_url(); ?>';
+     </script>
+     <?php   
+     }
+     exit;
+    //header("location:".scsl_redirect_url()."");
 }    
          
   
@@ -443,6 +491,20 @@ function scsl_app_video()
  exit;
 
 }
+
+add_action('wp_ajax_scstwlogin', 'scsl_login_tw' );
+add_action('wp_ajax_nopriv_scstwlogin', 'scsl_login_tw' );
+function scsl_login_tw()
+{
+  $tw_arr=array();
+  $name_arr=explode(" ",sanitize_text_field($_GET['full_name']));
+  $tw_arr['email']=sanitize_text_field($_GET['uemail']);
+  $tw_arr['first_name']=sanitize_text_field($name_arr[0]);
+  $tw_arr['last_name']=sanitize_text_field($name_arr[1]);
+  $tw_arr['member_id']=sanitize_text_field($_GET['member_id']);
+  general_soclever_login(json_encode($tw_arr),'4');
+      
+}    
 
 add_action('wp_ajax_scsfblogin', 'scsl_login_fb' );
 add_action('wp_ajax_nopriv_scsfblogin', 'scsl_login_fb' );
@@ -613,6 +675,7 @@ wp_set_current_user($user_id,$creds['user_login']);
 $notify_cs=get_cscurl("https://www.socleversocial.com/dashboard/track_register_new.php?siteid=".get_option('scsl_site_id')."&action=notifycs&is_new=".$is_new."&is_from=".$is_from."&siteUid=".$id_use."&member_id=".$member_id);
 if($notify_cs)
 {
+    scsl_custom_fun($notify_cs);
     $red_url=($_COOKIE['lch']=='l')?get_site_url():$_COOKIE['lch'];
     
     
@@ -621,13 +684,27 @@ if($notify_cs)
     scsl_send_reg_email($creds['user_login'],$is_from);    
     
     }
+    ?>
     
-    if($is_from=='7')
+     <script type="text/javascript">
+      window.location.href='<?php echo scsl_redirect_url(); ?>';
+      </script>
+     
+    
+    <?php
+    
+    /*if($is_from=='7')
     {
         
-        
-    
-    header("location:".scsl_redirect_url()."");
+      ?>
+      <script type="text/javascript">
+      window.location.href='<?php echo scsl_redirect_url(); ?>';
+      </script>
+      
+      
+      <?php  
+    exit;
+        //header("location:".scsl_redirect_url()."");
     
 
 
@@ -635,9 +712,16 @@ if($notify_cs)
     }
     else
     {
+        ?>
+         <script type="text/javascript">
+      window.location.href='<?php echo scsl_redirect_url(); ?>';
+      </script>
+     
+        
+        <?php
         echo scsl_redirect_url();
         
-    }
+    }*/
   
  } 
 wp_die(); 
@@ -660,11 +744,12 @@ function scsl_redirect_url()
 		
 		if (get_option('scsl_login_form_redirect')!='')
 		{
+		  //echo strtolower(get_option('scsl_login_form_redirect'));
 			switch (strtolower(get_option('scsl_login_form_redirect')))
 			{
 				case 'current':
 
-						$redirect_to = scsl_login_get_current_url ();
+						$redirect_to = scsl_login_get_current_url();
 					
 					break;
 
@@ -690,7 +775,10 @@ function scsl_redirect_url()
 		}
 	}
 	
-
+if(empty($redirect_to))
+{
+    $redirect_to = home_url ();
+}
 return $redirect_to;
 
 
@@ -1231,8 +1319,8 @@ function show_activate_tab(tab_id)
                 </h2>
                 <div class="main-bx1">
                 	<p>1. <a class="sky" href="https://www.socleversocial.com/dashboard/" target="_blank">Login</a> to your SoClever account. Or <a class="sky" href="https://www.socleversocial.com/register/?wpd=<?php echo base64_encode(get_site_url()); ?>" target="_blank" >Register</a></span> for free account to generate API Keys.</p>
-                    <p>2. Get your API key, API secret and site ID from Site Settings page.</p>
-                    <p>3. Configure your API details on API settings tab on your Wordpress Admin Panel.</p>
+                    <p>2. Go to Site Settings . Your API key, API secret and site ID will be displayed on this page.</p>
+                    <p>3. Configure your API details on API settings tab on your magento Admin Panel.</p>
                     <p>4. To be able to enable Social Login for your site, please create Social Apps on social networks. For more information on how to create Apps for your website please visit our help section on Social Network Set Up.</p>
                     <p>5. Please configure your Social Apps API details on SoClever Authorization page.</p>
                     <p>6. Once you configure Authorization Page, social network buttons will be unlocked to use at Login Settings Page. Please select social networks you want to use for social login and save settings.</p>
